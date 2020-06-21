@@ -37,7 +37,7 @@
                 <div class="card-icon">
                     <i class="material-icons">military_tech</i>
                 </div>
-                <h4 class="card-title">Create Role</h4>
+                <h4 class="card-title">Edit Role</h4>
 
             </div>
             <div class="card-body ">

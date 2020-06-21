@@ -11,7 +11,7 @@
                     <div class="card-icon">
                         <i class="material-icons">assignment</i>
                     </div>
-                    <h4 class="card-title">Simple Table</h4>
+                    <h4 class="card-title">Roles </h4>
                     @can('role-create')
 
                         <a class="btn btn-success pull-right" style="float: right" href="{{ route('roles.create') }}"> Create New Role</a>
@@ -69,7 +69,7 @@
                                     <td class="">{{ $role->updated_at }}</td>
                                     <td class="td-actions text-right">
                                         <a href="{{route('roles.show',$role->id)}}" rel="tooltip" class="btn btn-info btn-link">
-                                            <i class="material-icons">person</i>
+                                            <i class="material-icons">visibility</i>
                                         </a>
                                         @can('role-edit')
                                             <a href="{{route('roles.edit',$role->id)}}" rel="tooltip" class="btn btn-success btn-link">
