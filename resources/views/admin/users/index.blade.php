@@ -1,9 +1,8 @@
 @extends('admin.layout')
 @section('content')
-    <br>
-    <br>
-    <br>
 
+    <div class="content">
+        <div class="container-fluid">
     <div class="row">
         <div class="col-md-12">
             <div class="card">
@@ -84,14 +83,14 @@
                                             </a>
                                         @endcan
                                         @can('user-delete')
-                                            <a href="{{route('users.destroy',$user->id)}}" rel="tooltip" class="btn btn-danger btn-link" onclick="event.preventDefault();
+                                            <button rel="tooltip" class="btn btn-danger btn-link" onclick="event.preventDefault();
                                                      document.getElementById('delete-form').submit();">
                                                 <i class="material-icons">close</i>
                                                 <form id="delete-form" action="{{ route('users.destroy',$user->id) }}" method="POST" style="display: none;">
                                                     <input name="_method" type="hidden" value="DELETE">
                                                     @csrf
                                                 </form>
-                                            </a>
+                                            </button>
                                         @endcan
                                     </td>
                             </tr>
@@ -102,6 +101,8 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
         </div>
     </div>
 @endsection

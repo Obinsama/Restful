@@ -24,7 +24,9 @@ class MainController extends Controller
         $success=DB::table('transaction')->where('statut',12)->where('date_et_heure','>=',$start)->where('date_et_heure','<=',$end)->where('client_id',Auth::id())->count();
         $total=DB::table('transaction')->where('date_et_heure','>=',$start)->where('date_et_heure','<=',$end)->where('client_id',Auth::id())->count();
         $totalmoney=DB::table('transaction')->where('statut',12)->where('date_et_heure','>=',$start)->where('date_et_heure','<=',$end)->where('client_id',Auth::id())->sum('montant');
-        return view('admin.dashboard',compact('total','success','failed','totalmoney'));
+        $results=DB::table('transaction')->where('client_id',Auth::id())->orderBy('date_et_heure','desc')->paginate(5);
+
+        return view('admin.dashboard',compact('total','success','failed','totalmoney','results'));
     }
     public function getall(Request $request){
         $entries=DB::table('transaction')->where('client_id',Auth::id())->get();
@@ -34,10 +36,11 @@ class MainController extends Controller
             DB::table('transaction')->where('transaction_id',$entry->transaction_id)->where('client_id',Auth::id())->update(['unique_id'=>$unique_id]);
         }
         $param=$request->input('action');
-        $result['transactions']=DB::table('transaction')->where('client_id',Auth::id())->orderBy('date_et_heure','desc')->get();
+        $result['transactions']=DB::table('transaction')->where('client_id',Auth::id())->orderBy('date_et_heure','desc')->paginate(5);
         $result['boxes']=$this->retrieve_boxes_data();
         //$result=Test::all();
-        return response()->json($result);
+//        return response()->json($result);
+        return view('admin.dashboard',compact('$result'));
     }
     public function getlatest(Request $request){
 

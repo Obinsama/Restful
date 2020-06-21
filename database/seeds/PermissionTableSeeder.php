@@ -23,23 +23,41 @@ class PermissionTableSeeder extends Seeder
     public function run()
 
     {
-// Reset cached roles and permissions
-        app()['cache']->forget('spatie.permission.cache');
+
+        $permissions = [
+
+            'role-list',
+
+            'role-create',
+
+            'role-edit',
+
+            'role-delete',
+
+            'product-list',
+
+            'product-create',
+
+            'product-edit',
+
+            'product-delete',
+
+            'user-list',
+
+            'user-create',
+
+            'user-edit',
+
+            'user-delete',
+
+        ];
 
 
-        Role::create(['name' => 'user']);    /** @var \App\User $user */
-        $user = factory(\App\User::class)->create();
+        foreach ($permissions as $permission) {
 
-        $user->assignRole('user');    Role::create(['name' => 'admin']);
+            Permission::create(['name' => $permission]);
 
-        /** @var \App\User $user */
-        $admin = factory(\App\User::class)->create([
-            'name' => 'Aubin',
-            'email' => 'john@example.com',
-            'password' => 'Obinsama',
-        ]);
-
-        $admin->assignRole('admin');
+        }
 
     }
 

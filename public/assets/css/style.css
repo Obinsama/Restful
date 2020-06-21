@@ -2,10 +2,8 @@
 
 @font-face {
     font-family: "Roboto";
-    src: url("/fonts/Roboto-Regular.eot");
-    src: url("/fonts/Roboto-Regular.eot?#iefix") format('embedded-opentype'),
-    url("/fonts/Roboto-Regular.woff2") format('woff2'),
-    url("/fonts/Roboto-Regular.woff") format('woff'),
+    src: url("/fonts/Roboto-Regular.ttf");
+    src: url("/fonts/Roboto-Regular.ttf?#iefix") format('embedded-opentype'),
     url("/fonts/Roboto-Regular.ttf") format('truetype');
     font-weight: 400;
     font-style: normal;
@@ -15,10 +13,8 @@
 
 @font-face {
     font-family: "Roboto";
-    src: url('/fonts/Roboto-Italic.eot');
-    src: url('/fonts/Roboto-Italic.eot?#iefix') format('embedded-opentype'),
-    url('/fonts/Roboto-Italic.woff2') format('woff2'),
-    url('/fonts/Roboto-Italic.woff') format('woff'),
+    src: url('/fonts/Roboto-Italic.ttf');
+    src: url('/fonts/Roboto-Italic.ttf?#iefix') format('embedded-opentype'),
     url('/fonts/Roboto-Italic.ttf') format('truetype');
     font-weight: 400;
     font-style: italic;
@@ -28,10 +24,8 @@
 
 @font-face {
     font-family: "Roboto";
-    src: url('/fonts/Roboto-Bold.eot');
-    src: url('/fonts/Roboto-Bold.eot?#iefix') format('embedded-opentype'),
-    url('/fonts/Roboto-Bold.woff2') format('woff2'),
-    url('/fonts/Roboto-Bold.woff') format('woff'),
+    src: url('/fonts/Roboto-Bold.ttf');
+    src: url('/fonts/Roboto-Bold.ttf?#iefix') format('embedded-opentype'),
     url('/fonts/Roboto-Bold.ttf') format('truetype');
     font-weight: 700;
     font-style: normal;

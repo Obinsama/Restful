@@ -101,31 +101,52 @@
                             <th class="disabled-sorting text-right sorting" tabindex="0" aria-controls="datatables" rowspan="1" colspan="1" style="width: 150px;" aria-label="Actions: activate to sort column ascending">Actions</th>
                           </tr>
                           </thead>
-                          <tfoot>
-                          <tr>
-                            <th rowspan="1" colspan="1">Client</th>
-                            <th rowspan="1" colspan="1">Numero</th>
-                            <th rowspan="1" colspan="1">Montant</th>
-                            <th rowspan="1" colspan="1">Etat</th>
-                            <th rowspan="1" colspan="1">Start date</th>
-                            <th class="text-right" rowspan="1" colspan="1">Actions</th></tr>
-                          </tfoot>
+{{--                          <tfoot>--}}
+{{--                          <tr>--}}
+{{--                            <th rowspan="1" colspan="1">Client</th>--}}
+{{--                            <th rowspan="1" colspan="1">Numero</th>--}}
+{{--                            <th rowspan="1" colspan="1">Montant</th>--}}
+{{--                            <th rowspan="1" colspan="1">Etat</th>--}}
+{{--                            <th rowspan="1" colspan="1">Start date</th>--}}
+{{--                            <th class="text-right" rowspan="1" colspan="1">Actions</th></tr>--}}
+{{--                          </tfoot>--}}
                           <tbody id="dataflow">
-{{--                          <tr role="row" class="table-danger">--}}
-{{--                            <td tabindex="0" class="sorting_1">50000 FCFA</td>--}}
-{{--                            <td><button class="btn btn-danger btn-round btn-sm">--}}
-{{--                              <span class="btn-label">--}}
-{{--                                <i class="material-icons">clear</i>--}}
-{{--                              </span>Echouee--}}
-{{--                                <div class="ripple-container"></div></button></td>--}}
-{{--                            <td>Tokyo</td>--}}
-{{--                            <td>2008/11/28</td>--}}
-{{--                            <td class="text-right">--}}
+                          @foreach($results as $result)
+                          <tr role="row" class="table" value="{{$result->unique_id}}">
+                            <td tabindex="0" class="sorting_1">{{$result->client_id}}</td>
+                            <td>{{$result->numero_tel}}</td>
+                            <td>{{$result->montant}} FCFA</td>
+                            @if($result->statut==12)
+                            <td><button class="btn btn-success btn-round btn-sm">
+                              <span class="btn-label">
+                                <i class="material-icons">check</i>
+                              </span>REUSSIE
+                                <div class="ripple-container"></div></button>
+                            </td>
+                            @elseif($result->statut==11)
+                              <td><button class="btn btn-warning btn-round btn-sm">
+                              <span class="btn-label">
+                                <i class="material-icons">check</i>
+                              </span>Echouee
+                                  <div class="ripple-container"></div></button>
+                              </td>
+                              @else
+                              <td><button class="btn btn-danger btn-round btn-sm">
+                              <span class="btn-label">
+                                <i class="material-icons">clear</i>
+                              </span>Echouee
+                                  <div class="ripple-container"></div></button>
+                              </td>
+                              @endif
+                            <td>{{$result->date_et_heure}}</td>
+                            <td class="text-right">
 {{--                              <a href="#" class="btn btn-link btn-info btn-just-icon like"><i class="material-icons">favorite</i></a>--}}
-{{--                              <a href="#" class="btn btn-link btn-info btn-just-icon edit"><i class="material-icons">visibility</i></a>--}}
+                              <a href="#" class="btn btn-link btn-info btn-just-icon edit"><i class="material-icons">visibility</i></a>
 {{--                              <a href="#" class="btn btn-link btn-danger btn-just-icon remove"><i class="material-icons">close</i></a>--}}
-{{--                            </td>--}}
-{{--                          </tr>--}}
+                            </td>
+                          </tr>
+
+                          @endforeach
 {{--                          <tr role="row" class="table-success">--}}
 {{--                            <td class="sorting_1" tabindex="0">12000 FCFA</td>--}}
 {{--                            <td><button class="btn btn-success btn-round btn-sm">--}}
@@ -158,7 +179,10 @@
 {{--                          </tr>--}}
 
                           </tbody>
-                        </table></div></div><div class="row"><div class="col-sm-12 col-md-5"><div class="dataTables_info" id="datatables_info" role="status" aria-live="polite">Showing 1 to 10 of 40 entries</div></div><div class="col-sm-12 col-md-7"><div class="dataTables_paginate paging_full_numbers" id="datatables_paginate"><ul class="pagination"><li class="paginate_button page-item first disabled" id="datatables_first"><a href="#" aria-controls="datatables" data-dt-idx="0" tabindex="0" class="page-link">First</a></li><li class="paginate_button page-item previous disabled" id="datatables_previous"><a href="#" aria-controls="datatables" data-dt-idx="1" tabindex="0" class="page-link">Prev</a></li><li class="paginate_button page-item active"><a href="#" aria-controls="datatables" data-dt-idx="2" tabindex="0" class="page-link">1</a></li><li class="paginate_button page-item "><a href="#" aria-controls="datatables" data-dt-idx="3" tabindex="0" class="page-link">2</a></li><li class="paginate_button page-item "><a href="#" aria-controls="datatables" data-dt-idx="4" tabindex="0" class="page-link">3</a></li><li class="paginate_button page-item "><a href="#" aria-controls="datatables" data-dt-idx="5" tabindex="0" class="page-link">4</a></li><li class="paginate_button page-item next" id="datatables_next"><a href="#" aria-controls="datatables" data-dt-idx="6" tabindex="0" class="page-link">Next</a></li><li class="paginate_button page-item last" id="datatables_last"><a href="#" aria-controls="datatables" data-dt-idx="7" tabindex="0" class="page-link">Last</a></li></ul></div></div></div></div>
+
+                        </table>
+                       <div class="mr-auto" >{{$results->links()}}</div>
+{{--                      </div></div><div class="row"><div class="col-sm-12 col-md-5"><div class="dataTables_info" id="datatables_info" role="status" aria-live="polite">Showing 1 to 10 of 40 entries</div></div><div class="col-sm-12 col-md-7"><div class="dataTables_paginate paging_full_numbers" id="datatables_paginate"><ul class="pagination"><li class="paginate_button page-item first disabled" id="datatables_first"><a href="#" aria-controls="datatables" data-dt-idx="0" tabindex="0" class="page-link">First</a></li><li class="paginate_button page-item previous disabled" id="datatables_previous"><a href="#" aria-controls="datatables" data-dt-idx="1" tabindex="0" class="page-link">Prev</a></li><li class="paginate_button page-item active"><a href="#" aria-controls="datatables" data-dt-idx="2" tabindex="0" class="page-link">1</a></li><li class="paginate_button page-item "><a href="#" aria-controls="datatables" data-dt-idx="3" tabindex="0" class="page-link">2</a></li><li class="paginate_button page-item "><a href="#" aria-controls="datatables" data-dt-idx="4" tabindex="0" class="page-link">3</a></li><li class="paginate_button page-item "><a href="#" aria-controls="datatables" data-dt-idx="5" tabindex="0" class="page-link">4</a></li><li class="paginate_button page-item next" id="datatables_next"><a href="#" aria-controls="datatables" data-dt-idx="6" tabindex="0" class="page-link">Next</a></li><li class="paginate_button page-item last" id="datatables_last"><a href="#" aria-controls="datatables" data-dt-idx="7" tabindex="0" class="page-link">Last</a></li></ul></div></div></div></div>--}}
                 </div>
               </div>
               <!-- end content-->

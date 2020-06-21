@@ -41,6 +41,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::post('/getall','MainController@getall')->name('getall');
     Route::post('/getlatest','MainController@getlatest')->name('getlatest');
     Route::post('/lock','MainController@lock')->name('lock');
+    Route::post('/purchase','MainController@purchase')->name('purchase');
 
 });
 

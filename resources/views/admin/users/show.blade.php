@@ -40,7 +40,7 @@
             </div>
 
         <div class="card-footer text-right">
-            <a href="{{route('roles.index')}}" class="btn btn-rose ml-auto mr-auto">Back</a>
+            <a href="{{route('users.index')}}" class="btn btn-rose ml-auto mr-auto">Back</a>
 
         </div>
     </div>
