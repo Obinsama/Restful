@@ -58,9 +58,9 @@
                             <label class="form-check-label">{{ $value->name }}
                                 {{$check=in_array($value->id, $rolePermissions)}}
                                 @if($check)
-                                    <input name="permission[]" checked class="form-check-input" type="checkbox" value="{{$value->id}}"><span class="form-check-sign"><span class="check"></span></span></label>
+                                    <input name="permission[]" checked class="form-check-input" type="checkbox" value=""><span class="form-check-sign"><span class="check"></span></span></label>
                             @else
-                                <input name="permission[]"  class="form-check-input" type="checkbox" value="{{$value->id}}"><span class="form-check-sign"><span class="check"></span></span></label>
+                                <input name="permission[]"  class="form-check-input" type="checkbox" value=""><span class="form-check-sign"><span class="check"></span></span></label>
 
                             @endif
                         </div>
@@ -91,7 +91,7 @@
 
             <div class="card-footer text-right">
                 <a href="{{route('roles.index')}}" class="btn btn-rose">Back</a>
-                <button type="submit" class="btn btn-rose">Create</button>
+                <button type="submit" class="btn btn-rose">Update</button>
             </div>
         </div>
         </form>

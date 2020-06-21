@@ -16,6 +16,8 @@ use DB;
 
 use Hash;
 
+use Illuminate\Support\Arr;
+
 
 class UserController extends Controller
 
@@ -31,13 +33,30 @@ class UserController extends Controller
 
      */
 
+    function __construct()
+
+    {
+
+        $this->middleware('permission:user-list|role-create|user-edit|user-delete', ['only' => ['index','store']]);
+
+        $this->middleware('permission:user-create', ['only' => ['create','store']]);
+
+        $this->middleware('permission:user-edit', ['only' => ['edit','update']]);
+
+        $this->middleware('permission:user-delete', ['only' => ['destroy']]);
+
+    }
+
+
+
+
     public function index(Request $request)
 
     {
 
         $data = User::orderBy('id','DESC')->paginate(5);
 
-        return view('users.index',compact('data'))
+        return view('admin.users.index',compact('data'))
 
             ->with('i', ($request->input('page', 1) - 1) * 5);
 
@@ -60,7 +79,7 @@ class UserController extends Controller
 
         $roles = Role::pluck('name','name')->all();
 
-        return view('users.create',compact('roles'));
+        return view('admin.users.create',compact('roles'));
 
     }
 
@@ -129,7 +148,7 @@ class UserController extends Controller
 
         $user = User::find($id);
 
-        return view('users.show',compact('user'));
+        return view('admin.users.show',compact('user'));
 
     }
 
@@ -157,7 +176,7 @@ class UserController extends Controller
         $userRole = $user->roles->pluck('name','name')->all();
 
 
-        return view('users.edit',compact('user','roles','userRole'));
+        return view('admin.users.edit',compact('user','roles','userRole'));
 
     }
 
@@ -201,7 +220,7 @@ class UserController extends Controller
 
         }else{
 
-            $input = array_except($input,array('password'));
+            $input = Arr::except($input,array('password'));
 
         }
 
