@@ -85,9 +85,10 @@
                                         @endcan
                                         @can('user-delete')
                                             <a href="{{route('users.destroy',$user->id)}}" rel="tooltip" class="btn btn-danger btn-link" onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
+                                                     document.getElementById('delete-form').submit();">
                                                 <i class="material-icons">close</i>
-                                                <form id="logout-form" action="{{ route('users.destroy',$user->id) }}" method="POST" style="display: none;">
+                                                <form id="delete-form" action="{{ route('users.destroy',$user->id) }}" method="POST" style="display: none;">
+                                                    <input name="_method" type="hidden" value="DELETE">
                                                     @csrf
                                                 </form>
                                             </a>
