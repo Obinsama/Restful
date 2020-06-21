@@ -96,25 +96,25 @@ The above copyright notice and this permission notice shall be included in all c
     <div class="collapse navbar-collapse justify-content-end">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a href="../dashboard.html" class="nav-link">
+          <a href="{{route('index')}}" class="nav-link">
             <i class="material-icons">dashboard</i>
             Dashboard
           </a>
         </li>
         <li class="nav-item ">
-          <a href="register.html" class="nav-link">
+          <a href="{{route('register')}}" class="nav-link">
             <i class="material-icons">person_add</i>
             Register
           </a>
         </li>
         <li class="nav-item  active ">
-          <a href="login.html" class="nav-link">
+          <a href="{{route('login')}}" class="nav-link">
             <i class="material-icons">fingerprint</i>
             Login
           </a>
         </li>
         <li class="nav-item ">
-          <a href="lock.html" class="nav-link">
+          <a href="{{route('lock')}}" class="nav-link">
             <i class="material-icons">lock_open</i>
             Lock
           </a>

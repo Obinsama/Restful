@@ -24,6 +24,7 @@ The above copyright notice and this permission notice shall be included in all c
         Material Dashboard PRO by Creative Tim
     </title>
     <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
+    <meta name="csrf-token" content="{!! csrf_token() !!}">
     <!-- Extra details for Live View on GitHub Pages -->
     <!-- Canonical SEO -->
     <link rel="canonical" href="https://www.creative-tim.com/product/material-dashboard-pro" />

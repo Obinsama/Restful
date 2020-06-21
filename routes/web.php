@@ -15,9 +15,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 Auth::routes();
-Route::get('/home','MainController@index')->name('index');
-Route::post('/getall','MainController@getall')->name('getall');
-Route::post('/getlatest','MainController@getlatest')->name('getlatest');
+
 
 //Route::group(['middleware' => ['auth']], function() {
 //
@@ -35,16 +33,15 @@ Route::post('/getlatest','MainController@getlatest')->name('getlatest');
 Route::group(['middleware' => ['auth']], function() {
 
     Route::resource('roles','RoleController');
-
     Route::resource('users','UserController');
-
     Route::resource('products','ProductController');
 
+    Route::get('/home','MainController@index')->name('index');
+    Route::post('/getall','MainController@getall')->name('getall');
+    Route::post('/getlatest','MainController@getlatest')->name('getlatest');
+    Route::post('/lock','MainController@lock')->name('lock');
+
 });
-Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
 
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
+//

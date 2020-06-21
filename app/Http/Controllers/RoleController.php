@@ -1,6 +1,7 @@
 <?php
 
 
+
 namespace App\Http\Controllers;
 
 
@@ -13,6 +14,7 @@ use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 
 use DB;
+
 
 
 class RoleController extends Controller
@@ -33,7 +35,7 @@ class RoleController extends Controller
 
     {
 
-        $this->middleware('permission:role-list');
+        $this->middleware('permission:role-list|role-create|role-edit|role-delete', ['only' => ['index','store']]);
 
         $this->middleware('permission:role-create', ['only' => ['create','store']]);
 
@@ -42,6 +44,7 @@ class RoleController extends Controller
         $this->middleware('permission:role-delete', ['only' => ['destroy']]);
 
     }
+
 
 
     /**
@@ -60,11 +63,12 @@ class RoleController extends Controller
 
         $roles = Role::orderBy('id','DESC')->paginate(5);
 
-        return view('roles.index',compact('roles'))
+        return view('admin.roles.index',compact('roles'))
 
             ->with('i', ($request->input('page', 1) - 1) * 5);
 
     }
+
 
 
     /**
@@ -83,9 +87,10 @@ class RoleController extends Controller
 
         $permission = Permission::get();
 
-        return view('roles.create',compact('permission'));
+        return view('admin.roles.create',compact('permission'));
 
     }
+
 
 
     /**
@@ -113,9 +118,11 @@ class RoleController extends Controller
         ]);
 
 
+
         $role = Role::create(['name' => $request->input('name')]);
 
         $role->syncPermissions($request->input('permission'));
+
 
 
         return redirect()->route('roles.index')
@@ -149,9 +156,11 @@ class RoleController extends Controller
             ->get();
 
 
-        return view('roles.show',compact('role','rolePermissions'));
+
+        return view('admin.roles.show',compact('role','rolePermissions'));
 
     }
+
 
 
     /**
@@ -181,9 +190,11 @@ class RoleController extends Controller
             ->all();
 
 
-        return view('roles.edit',compact('role','permission','rolePermissions'));
+
+        return view('admin.roles.edit',compact('role','permission','rolePermissions'));
 
     }
+
 
 
     /**
@@ -213,6 +224,7 @@ class RoleController extends Controller
         ]);
 
 
+
         $role = Role::find($id);
 
         $role->name = $request->input('name');
@@ -220,7 +232,9 @@ class RoleController extends Controller
         $role->save();
 
 
+
         $role->syncPermissions($request->input('permission'));
+
 
 
         return redirect()->route('roles.index')

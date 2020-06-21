@@ -20,21 +20,21 @@ class MainController extends Controller
         $numberofdays=30;
         $end=date('Y-m-d H:i:s');
         $start= date('Y-m-d H:i:s', strtotime($end.'- '.$numberofdays.'days'));
-        $failed=DB::table('transaction')->where('statut',15)->where('date_et_heure','>=',$start)->where('date_et_heure','<=',$end)->count();
-        $success=DB::table('transaction')->where('statut',12)->where('date_et_heure','>=',$start)->where('date_et_heure','<=',$end)->count();
-        $total=DB::table('transaction')->where('date_et_heure','>=',$start)->where('date_et_heure','<=',$end)->count();
-        $totalmoney=DB::table('transaction')->where('statut',12)->where('date_et_heure','>=',$start)->where('date_et_heure','<=',$end)->sum('montant');
+        $failed=DB::table('transaction')->where('statut',15)->where('date_et_heure','>=',$start)->where('date_et_heure','<=',$end)->where('client_id',Auth::id())->count();
+        $success=DB::table('transaction')->where('statut',12)->where('date_et_heure','>=',$start)->where('date_et_heure','<=',$end)->where('client_id',Auth::id())->count();
+        $total=DB::table('transaction')->where('date_et_heure','>=',$start)->where('date_et_heure','<=',$end)->where('client_id',Auth::id())->count();
+        $totalmoney=DB::table('transaction')->where('statut',12)->where('date_et_heure','>=',$start)->where('date_et_heure','<=',$end)->where('client_id',Auth::id())->sum('montant');
         return view('admin.dashboard',compact('total','success','failed','totalmoney'));
     }
     public function getall(Request $request){
-        $entries=DB::table('transaction')->get();
+        $entries=DB::table('transaction')->where('client_id',Auth::id())->get();
         //idd($entries);
         foreach ($entries as $entry){
             $unique_id=sha1(''.$entry->client_id.$entry->numero_tel.$entry->date_et_heure);
-            DB::table('transaction')->where('transaction_id',$entry->transaction_id)->update(['unique_id'=>$unique_id]);
+            DB::table('transaction')->where('transaction_id',$entry->transaction_id)->where('client_id',Auth::id())->update(['unique_id'=>$unique_id]);
         }
         $param=$request->input('action');
-        $result['transactions']=DB::table('transaction')->orderBy('date_et_heure','desc')->get();
+        $result['transactions']=DB::table('transaction')->where('client_id',Auth::id())->orderBy('date_et_heure','desc')->get();
         $result['boxes']=$this->retrieve_boxes_data();
         //$result=Test::all();
         return response()->json($result);
@@ -42,7 +42,7 @@ class MainController extends Controller
     public function getlatest(Request $request){
 
         $param=$request->input('action');
-        $result['transaction']=DB::table('transaction')->get()->last();
+        $result['transaction']=DB::table('transaction')->where('client_id',Auth::id())->get()->last();
         $result['boxes']=$this->retrieve_boxes_data();
         return response()->json($result);
     }
@@ -50,10 +50,10 @@ class MainController extends Controller
         $numberofdays=30;
         $end=date('Y-m-d H:i:s');
         $start= date('Y-m-d H:i:s', strtotime($end.'- '.$numberofdays.'days'));
-        $failed=DB::table('transaction')->where('statut',15)->where('date_et_heure','>=',$start)->where('date_et_heure','<=',$end)->count();
-        $success=DB::table('transaction')->where('statut',12)->where('date_et_heure','>=',$start)->where('date_et_heure','<=',$end)->count();
-        $total=DB::table('transaction')->where('date_et_heure','>=',$start)->where('date_et_heure','<=',$end)->count();
-        $totalmoney=DB::table('transaction')->where('statut',12)->where('date_et_heure','>=',$start)->where('date_et_heure','<=',$end)->sum('montant');
+        $failed=DB::table('transaction')->where('statut',15)->where('date_et_heure','>=',$start)->where('date_et_heure','<=',$end)->where('client_id',Auth::id())->count();
+        $success=DB::table('transaction')->where('statut',12)->where('date_et_heure','>=',$start)->where('date_et_heure','<=',$end)->where('client_id',Auth::id())->count();
+        $total=DB::table('transaction')->where('date_et_heure','>=',$start)->where('date_et_heure','<=',$end)->where('client_id',Auth::id())->count();
+        $totalmoney=DB::table('transaction')->where('statut',12)->where('date_et_heure','>=',$start)->where('date_et_heure','<=',$end)->where('client_id',Auth::id())->sum('montant');
         $result=[
             'failed'=>$failed,
             'success'=>$success,
