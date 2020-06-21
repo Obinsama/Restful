@@ -158,13 +158,13 @@ The above copyright notice and this permission notice shall be included in all c
                         <p> Roles </p>
                     </a>
                 </li>
+                @endcan
                 <li class="nav-item  @if($view_name=='admin-products-index'||$view_name=='admin-products-show'||$view_name=='admin-products-edit'||$view_name=='admin-products-create') active @endif ">
                     <a class="nav-link" href="{{route('products.index')}}">
                         <i class="material-icons">shopping_cart</i>
                         <p> Products </p>
                     </a>
                 </li>
-                @endcan
             </ul>
         </div>
     </div>

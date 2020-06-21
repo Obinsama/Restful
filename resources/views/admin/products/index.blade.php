@@ -20,121 +20,122 @@
                 </div>
 
             </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-header card-header-rose card-header-icon">
-                            <div class="card-icon">
-                                <i class="material-icons">assignment</i>
+            @can('product-edit')
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header card-header-rose card-header-icon">
+                                <div class="card-icon">
+                                    <i class="material-icons">assignment</i>
+                                </div>
+                                <h4 class="card-title">Management </h4>
+                                <div class="pull-right">
+
+                                    @can('product-create')
+
+                                        <a class="btn btn-success" style="float: right" href="{{ route('products.create') }}"> Create New Product</a>
+
+                                    @endcan
+
+                                </div>
                             </div>
-                            <h4 class="card-title">Management </h4>
-                            <div class="pull-right">
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    @if ($message = Session::get('success'))
 
-                                @can('product-create')
+                                        <div class="alert alert-success">
 
-                                    <a class="btn btn-success" style="float: right" href="{{ route('products.create') }}"> Create New Product</a>
+                                            <p>{{ $message }}</p>
 
-                                @endcan
+                                        </div>
 
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                @if ($message = Session::get('success'))
+                                    @endif
+                                    <table class="table table-bordered">
+                                        <thead>
+                                        <tr>
 
-                                    <div class="alert alert-success">
+                                            <th>No</th>
 
-                                        <p>{{ $message }}</p>
+                                            <th>Name</th>
 
-                                    </div>
+                                            <th>Details</th>
 
-                                @endif
-                                <table class="table table-bordered">
-                                    <thead>
-                                    <tr>
+                                            <th width="280px">Action</th>
 
-                                        <th>No</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        @foreach ($products as $product)
+                                            @can('product-edit')
+                                                <tr>
 
-                                        <th>Name</th>
+                                                    <td>{{ ++$i }}</td>
 
-                                        <th>Details</th>
+                                                    <td>{{ $product->name }}</td>
 
-                                        <th width="280px">Action</th>
+                                                    <td>{{ $product->detail }}</td>
 
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    @foreach ($products as $product)
-                                        @can('product-edit')
-                                            <tr>
+                                                    <td>
 
-                                                <td>{{ ++$i }}</td>
+                                                        <form action="{{ route('products.destroy',$product->id) }}" method="POST">
 
-                                                <td>{{ $product->name }}</td>
+                                                            <a class="btn btn-sm btn-info" href="{{ route('products.show',$product->id) }}">Show</a>
 
-                                                <td>{{ $product->detail }}</td>
+                                                            @can('product-edit')
 
-                                                <td>
+                                                                <a class="btn btn-sm btn-primary" href="{{ route('products.edit',$product->id) }}">Edit</a>
 
-                                                    <form action="{{ route('products.destroy',$product->id) }}" method="POST">
-
-                                                        <a class="btn btn-sm btn-info" href="{{ route('products.show',$product->id) }}">Show</a>
-
-                                                        @can('product-edit')
-
-                                                            <a class="btn btn-sm btn-primary" href="{{ route('products.edit',$product->id) }}">Edit</a>
-
-                                                        @endcan
+                                                            @endcan
 
 
-                                                        @csrf
+                                                            @csrf
 
-                                                        @method('DELETE')
+                                                            @method('DELETE')
 
-                                                        @can('product-delete')
+                                                            @can('product-delete')
 
-                                                            <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                                                                <button type="submit" class="btn btn-sm btn-danger">Delete</button>
 
-                                                        @endcan
+                                                            @endcan
 
-                                                    </form>
+                                                        </form>
 
-                                                </td>
+                                                    </td>
 
-                                            </tr>
-                                        @endcan
-                                    @endforeach
-                                    </tbody>
-                                </table>
-                                {!! $products->links() !!}
+                                                </tr>
+                                            @endcan
+                                        @endforeach
+                                        </tbody>
+                                    </table>
+                                    {!! $products->links() !!}
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-
+            @endcan
 
             <div class="row justify-content-center">
 
-                    @foreach ($products as $product)
-                        <div class=" col-md-3">
-                            <div class="card card-pricing ">
-                                <h6 class="card-category"> {{$product->name}}</h6>
-                                <div class="card-body">
-                                    <div class="card-icon icon-rose ">
-                                        <i class="material-icons">home</i>
-                                    </div>
-                                    <h3 class="card-title">{{$product->price}} FCFA</h3>
-                                    <p class="card-description">{{$product->detail}}</p>
+                @foreach ($products as $product)
+                    <div class=" col-md-3">
+                        <div class="card card-pricing ">
+                            <h6 class="card-category"> {{$product->name}}</h6>
+                            <div class="card-body">
+                                <div class="card-icon icon-rose ">
+                                    <i class="material-icons">home</i>
                                 </div>
-                                <div class="card-footer justify-content-center ">
-                                    <a href="{{route('purchase',$product->id)}}" class="btn btn-round btn-rose">Choose Plan</a>
-                                </div>
+                                <h3 class="card-title">{{$product->price}} FCFA</h3>
+                                <p class="card-description">{{$product->detail}}</p>
+                            </div>
+                            <div class="card-footer justify-content-center ">
+                                <a href="{{route('purchase',$product)}}" class="btn btn-round btn-rose">Choose Plan</a>
                             </div>
                         </div>
-                        <clear></clear>
+                    </div>
+                    <clear></clear>
 
-                    @endforeach
+                @endforeach
 
             </div>
         </div>
