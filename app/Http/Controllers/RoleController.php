@@ -117,6 +117,7 @@ class RoleController extends Controller
 
         ]);
 
+$permission=$request->input('permission');
 
 
         $role = Role::create(['name' => $request->input('name')]);
