@@ -61,7 +61,7 @@
                                             <a href="{{route('roles.destroy',$role->id)}}" rel="tooltip" class="btn btn-danger btn-link" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                                 <i class="material-icons">close</i>
-                                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                                <form id="logout-form" action="{{ route('roles.destroy',$role->id) }}" method="POST" style="display: none;">
                                                     @csrf
                                                 </form>
                                             </a>
