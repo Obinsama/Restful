@@ -3,7 +3,6 @@
     <br>
     <br>
     <br>
-
     <div class="row">
         <div class="col-md-12">
             <div class="card">
@@ -42,24 +41,6 @@
                             </tr>
                             </thead>
                             <tbody>
-{{--                            <tr>--}}
-{{--                                <td class="text-center">1</td>--}}
-{{--                                <td>Andrew Mike</td>--}}
-{{--                                <td>Develop</td>--}}
-{{--                                <td>2013</td>--}}
-{{--                                <td class="text-right">&euro; 99,225</td>--}}
-{{--                                <td class="td-actions text-right">--}}
-{{--                                    <button type="button" rel="tooltip" class="btn btn-info">--}}
-{{--                                        <i class="material-icons">person</i>--}}
-{{--                                    </button>--}}
-{{--                                    <button type="button" rel="tooltip" class="btn btn-success">--}}
-{{--                                        <i class="material-icons">edit</i>--}}
-{{--                                    </button>--}}
-{{--                                    <button type="button" rel="tooltip" class="btn btn-danger">--}}
-{{--                                        <i class="material-icons">close</i>--}}
-{{--                                    </button>--}}
-{{--                                </td>--}}
-{{--                            </tr>--}}
                             <tr>
                                 @foreach ($roles as $key => $role)
                                     <td class="text-center">{{ ++$i }}</td>

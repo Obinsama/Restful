@@ -61,7 +61,7 @@
 
                 <strong style="margin-left: 20px">Role:</strong>
                 <div class="form-group col-md-8" style="margin: 10px 0px 20px 20px">
-                    {!! Form::select('roles[]', $roles,$userRole, array('class' => 'form-control','multiple')) !!}s
+                    {!! Form::select('roles[]', $roles,$userRole, array('class' => 'form-control','multiple')) !!}
                 </div>
                 <div class="card-footer text-right">
                     <a href="{{route('users.index')}}" class="btn btn-rose">Back</a>

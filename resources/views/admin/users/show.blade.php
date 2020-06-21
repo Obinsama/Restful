@@ -1,61 +1,32 @@
-@extends('layouts.app')
-
-
+@extends('admin.layout')
 @section('content')
-
-    <div class="row">
-
-        <div class="col-lg-12 margin-tb">
-
-            <div class="pull-left">
-
-                <h2> Show User</h2>
-
-            </div>
-
-            <div class="pull-right">
-
-                <a class="btn btn-primary" href="{{ route('users.index') }}"> Back</a>
+    <br>
+    <br>
+    <br>
+    <div class="col-md-6 ml-auto mr-auto">
+        <div class="card ">
+            <div class="card-header card-header-rose card-header-icon">
+                <div class="card-icon">
+                    <i class="material-icons">military_tech</i>
+                </div>
+                <h4 class="card-title">Show User</h4>
 
             </div>
+            <div class="card-body ">
+                <div class="form-group bmd-form-group">
+                    <strong> Nom :</strong>
+                    {{ $user->name }}
+                </div>
+                <div class="form-group bmd-form-group">
+                    <strong> Email :</strong>
+                    {{ $user->email }}
+                </div>
 
-        </div>
-
-    </div>
-
-
-    <div class="row">
-
-        <div class="col-xs-12 col-sm-12 col-md-12">
-
-            <div class="form-group">
-
-                <strong>Name:</strong>
-
-                {{ $user->name }}
-
+                {{--                    <div class="category form-category">* Required fields</div>--}}
             </div>
-
-        </div>
-
-        <div class="col-xs-12 col-sm-12 col-md-12">
-
-            <div class="form-group">
-
-                <strong>Email:</strong>
-
-                {{ $user->email }}
-
-            </div>
-
-        </div>
-
-        <div class="col-xs-12 col-sm-12 col-md-12">
-
-            <div class="form-group">
-
-                <strong>Roles:</strong>
-
+            <strong style="margin-left: 30px">Roles :</strong>
+            <div class="row" style="margin-left: 30px;">
+                <div class="form-group">
                 @if(!empty($user->getRoleNames()))
 
                     @foreach($user->getRoleNames() as $v)
@@ -65,11 +36,14 @@
                     @endforeach
 
                 @endif
-
+                </div>
             </div>
 
-        </div>
+        <div class="card-footer text-right">
+            <a href="{{route('roles.index')}}" class="btn btn-rose ml-auto mr-auto">Back</a>
 
+        </div>
     </div>
 
+    </div>
 @endsection

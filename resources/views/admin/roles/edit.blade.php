@@ -58,13 +58,19 @@
                             <label class="form-check-label">{{ $value->name }}
                                 {{$check=in_array($value->id, $rolePermissions)}}
                                 @if($check)
-                                    <input name="permission[]" checked class="form-check-input" type="checkbox" value=""><span class="form-check-sign"><span class="check"></span></span></label>
+                                    <input name="permission[]" checked class="form-check-input" type="checkbox" value="{{$value->id}}"><span class="form-check-sign"><span class="check"></span></span></label>
                             @else
-                                <input name="permission[]"  class="form-check-input" type="checkbox" value=""><span class="form-check-sign"><span class="check"></span></span></label>
+                                <input name="permission[]"  class="form-check-input" type="checkbox" value="{{$value->id}}"><span class="form-check-sign"><span class="check"></span></span></label>
 
                             @endif
                         </div>
                     @endforeach
+{{--                    @foreach($permission as $value)--}}
+{{--                        <label>{{ Form::checkbox('permission[]', $value->id, in_array($value->id, $rolePermissions) ? true : false, array('class' => 'form-check-sign')) }}--}}
+{{--                        <label>{{ Form::checkbox('permission[]', $value->id, in_array($value->id, $rolePermissions) ? true : false, array('class' => 'form-check-sign')) }}--}}
+{{--                            {{ $value->name }}</label>--}}
+{{--                        <br/>--}}
+{{--                    @endforeach--}}
                 </div>
             </div>
 
