@@ -36,3 +36,6 @@
     font-weight: 700;
     font-style: normal;
 }
+.custom-height{
+    height: 100px !important;
+}

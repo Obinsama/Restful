@@ -8,7 +8,7 @@ $(document).ready(function(){
             action:'getall',//voici en fait les parametres
         },
         headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},// le token
-        async:true,
+        async:false,
         success:function (data) {
             //console.log(data)
             var html='';
@@ -27,7 +27,8 @@ $(document).ready(function(){
             $('#boxes').children('div:nth-child(2)').find('h3').text(data['boxes'].failed);
             $('#boxes').children('div:nth-child(3)').find('h3').text(data['boxes'].success);
             $('#boxes').children('div:nth-child(4)').find('h3').text(data['boxes'].totalmoney);
-            $('#dataflow').html(html).fadeIn(2);
+            $('#dataflow').html(html).fadeIn('slow');
+            //  $('#dataflow').load(html).fadeIn("slow");
             // $.each(data,function () {
             //     console.log(data[0])
             // });
@@ -49,7 +50,7 @@ $(document).ready(function(){
                 action:'getlatest',//voici en fait les parametres
             },
             headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},// le token
-            async:true,
+            async:false,
             success:function (data) {
                 var html='';
                // console.log($('#dataflow').children('tr').first().attr('value'));
@@ -67,7 +68,7 @@ $(document).ready(function(){
                 $('#boxes').children('div:nth-child(4)').find('h3').text(data['boxes'].totalmoney);
                 var latest_id=$('#dataflow').children('tr').first().attr('value');
                 if(data['transaction'].unique_id!=latest_id){
-                   $('#dataflow').prepend(html);
+                   $('#dataflow').prepend(html).fadeIn("slow");
                 }
 
                 // html=$('#dataflow').html();
@@ -91,5 +92,5 @@ $(document).ready(function(){
             }
         });
         //alert('test');
-    },5000)
+    },10000)
 });
