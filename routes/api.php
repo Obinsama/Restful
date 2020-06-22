@@ -23,6 +23,7 @@ Route::post("transaction/listTransactionByClient","TransactionController@listTra
 Route::post("transaction/listAllTransaction","TransactionController@listAllTransaction")->name("listAllTransaction");
 Route::post("transaction/checkjson","TransactionController@checkJson")->name("checkjson");
 Route::post("transaction/taketransactionid","TransactionController@takeTransactionId")->name("taketransactionid");
+Route::post("transaction/state","TransactionController@state")->name("state");
 
 Route::post("transaction/totalincome","TransactionController@totalIncome")->name("totalincome");
 Route::post("transaction/totalincomeadmin","TransactionController@totalIncomeAdmin")->name("totalincomeadmin");

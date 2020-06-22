@@ -138,4 +138,9 @@ class TransactionController extends Controller
         $result['response']=DB::table('transaction')->where('numero_tel',$client_number)->where('statut',11)->orderBy('date_et_heure','desc')->limit(1)->get();
         return response()->json($result);
     }
+    public function state(Request $request){
+        $transaction_id= $request->input('state');
+        $result=DB::table('transaction')->where('transaction_id',$transaction_id)->get();
+        return response()->json($result);
+    }
 }
