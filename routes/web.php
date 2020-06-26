@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
 Auth::routes();
 
 
@@ -41,7 +39,9 @@ Route::group(['middleware' => ['auth']], function() {
     Route::post('/getall','MainController@getall')->name('getall');
     Route::post('/getlatest','MainController@getlatest')->name('getlatest');
     Route::post('/lock','MainController@lock')->name('lock');
+    Route::post('/change_stat_type','MainController@change_stat_type')->name('change_stat_type');
     Route::get('/purchase/{product}','AbonnementController@purchase')->name('purchase');
+    Route::get('/', 'MainController@index');
 
 });
 

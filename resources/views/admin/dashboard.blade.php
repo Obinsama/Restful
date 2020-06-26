@@ -13,7 +13,7 @@
                   <i class="material-icons">attach_money</i>
                 </div>
                 <p class="card-category">Transactions</p>
-                <h3 class="card-title">{{$total}}</h3>
+                <h3 class="card-title">{{$results['total']}}</h3>
               </div>
               <div class="card-footer">
                 <div class="stats">
@@ -30,7 +30,7 @@
                   <i class="material-icons">clear</i>
                 </div>
                 <p class="card-category">Echecs</p>
-                <h3 class="card-title">{{$failed}}</h3>
+                <h3 class="card-title">{{$results['failed']}}</h3>
               </div>
               <div class="card-footer">
                 <div class="stats">
@@ -46,7 +46,7 @@
                   <i class="material-icons">check</i>
                 </div>
                 <p class="card-category">Reussies</p>
-                <h3 class="card-title">{{$success}}</h3>
+                <h3 class="card-title">{{$results['success']}}</h3>
               </div>
               <div class="card-footer">
                 <div class="stats">
@@ -63,11 +63,11 @@
                   <i class="material-icons">monetization_on</i>
                 </div>
                 <p class="card-category">FCFA</p>
-                <h3 class="card-title">{{$totalmoney}}</h3>
+                <h3 class="card-title">{{$results['totalmoney']}}</h3>
               </div>
               <div class="card-footer">
                 <div class="stats">
-                  <i class="material-icons">help</i>30 Derniers jours
+                  <i class="material-icons">help</i>@if(isset($_SESSION['settings'])) {{$_SESSION['settings']['number']}} @else 30 @endif Derniers jours
                 </div>
               </div>
             </div>
@@ -111,7 +111,7 @@
 {{--                            <th class="text-right" rowspan="1" colspan="1">Actions</th></tr>--}}
 {{--                          </tfoot>--}}
                           <tbody id="dataflow">
-                          @foreach($results as $result)
+                          @foreach($results['transaction'] as $result)
                           <tr role="row" class="table" value="{{$result->unique_id}}">
                             <td tabindex="0" class="sorting_1">{{$result->client_id}}</td>
                             <td>{{$result->numero_tel}}</td>
@@ -181,7 +181,7 @@
                           </tbody>
 
                         </table>
-                       <div class="mr-auto" >{{$results->links()}}</div>
+                       <div class="mr-auto" >{{$results['transaction']->links()}}</div>
 {{--                      </div></div><div class="row"><div class="col-sm-12 col-md-5"><div class="dataTables_info" id="datatables_info" role="status" aria-live="polite">Showing 1 to 10 of 40 entries</div></div><div class="col-sm-12 col-md-7"><div class="dataTables_paginate paging_full_numbers" id="datatables_paginate"><ul class="pagination"><li class="paginate_button page-item first disabled" id="datatables_first"><a href="#" aria-controls="datatables" data-dt-idx="0" tabindex="0" class="page-link">First</a></li><li class="paginate_button page-item previous disabled" id="datatables_previous"><a href="#" aria-controls="datatables" data-dt-idx="1" tabindex="0" class="page-link">Prev</a></li><li class="paginate_button page-item active"><a href="#" aria-controls="datatables" data-dt-idx="2" tabindex="0" class="page-link">1</a></li><li class="paginate_button page-item "><a href="#" aria-controls="datatables" data-dt-idx="3" tabindex="0" class="page-link">2</a></li><li class="paginate_button page-item "><a href="#" aria-controls="datatables" data-dt-idx="4" tabindex="0" class="page-link">3</a></li><li class="paginate_button page-item "><a href="#" aria-controls="datatables" data-dt-idx="5" tabindex="0" class="page-link">4</a></li><li class="paginate_button page-item next" id="datatables_next"><a href="#" aria-controls="datatables" data-dt-idx="6" tabindex="0" class="page-link">Next</a></li><li class="paginate_button page-item last" id="datatables_last"><a href="#" aria-controls="datatables" data-dt-idx="7" tabindex="0" class="page-link">Last</a></li></ul></div></div></div></div>--}}
                 </div>
               </div>
@@ -231,106 +231,149 @@
   </footer>
   </div>
   </div>
+    @can('role-edit')
   <div class="fixed-plugin">
     <div class="dropdown show-dropdown">
       <a href="#" data-toggle="dropdown">
         <i class="fa fa-cog fa-2x"> </i>
       </a>
       <ul class="dropdown-menu">
-        <li class="header-title"> Sidebar Filters</li>
+        <form action="{{route('change_stat_type')}}" method="POST">
+          @csrf
+        <li class="header-title"> Reglages</li>
         <li class="adjustments-line">
-          <a href="javascript:void(0)" class="switch-trigger active-color">
-            <div class="badge-colors ml-auto mr-auto">
-              <span class="badge filter badge-purple" data-color="purple"></span>
-              <span class="badge filter badge-azure" data-color="azure"></span>
-              <span class="badge filter badge-green" data-color="green"></span>
-              <span class="badge filter badge-warning" data-color="orange"></span>
-              <span class="badge filter badge-danger" data-color="danger"></span>
-              <span class="badge filter badge-rose active" data-color="rose"></span>
-            </div>
-            <div class="clearfix"></div>
-          </a>
-        </li>
-        <li class="header-title">Sidebar Background</li>
-        <li class="adjustments-line">
-          <a href="javascript:void(0)" class="switch-trigger background-color">
-            <div class="ml-auto mr-auto">
-              <span class="badge filter badge-black active" data-background-color="black"></span>
-              <span class="badge filter badge-white" data-background-color="white"></span>
-              <span class="badge filter badge-red" data-background-color="red"></span>
-            </div>
-            <div class="clearfix"></div>
-          </a>
+          <div class="form-group bmd-form-group is-filled">
+            <label for="number" class="bmd-label-floating"> Statistiques sur (en jours):</label>
+            @if(isset($_SESSION['settings']))
+              <input type="number" class="form-control" value="{{$_SESSION['settings']['number']}}" name="number" id="number" required="true" aria-required="true">
+              @else
+              <input type="number" class="form-control" value="30" name="number" id="number" required="true" aria-required="true">
+            @endif
+          </div>
         </li>
         <li class="adjustments-line">
-          <a href="javascript:void(0)" class="switch-trigger">
-            <p>Sidebar Mini</p>
+          <div href="javascript:void(0)" class="switch-trigger">
+            <p>Statistiques globales</p>
             <label class="ml-auto">
               <div class="togglebutton switch-sidebar-mini">
                 <label>
-                  <input type="checkbox">
+                  <input type="checkbox" name="full_stat" >
                   <span class="toggle"></span>
                 </label>
               </div>
             </label>
             <div class="clearfix"></div>
-          </a>
+          </div>
         </li>
-        <li class="adjustments-line">
-          <a href="javascript:void(0)" class="switch-trigger">
-            <p>Sidebar Images</p>
-            <label class="switch-mini ml-auto">
-              <div class="togglebutton switch-sidebar-image">
-                <label>
-                  <input type="checkbox" checked="">
-                  <span class="toggle"></span>
-                </label>
-              </div>
-            </label>
-            <div class="clearfix"></div>
-          </a>
-        </li>
-        <li class="header-title">Images</li>
-        <li class="active">
-          <a class="img-holder switch-trigger" href="javascript:void(0)">
-            <img src="../assets/img/sidebar-1.jpg" alt="">
-          </a>
-        </li>
-        <li>
-          <a class="img-holder switch-trigger" href="javascript:void(0)">
-            <img src="../assets/img/sidebar-2.jpg" alt="">
-          </a>
-        </li>
-        <li>
-          <a class="img-holder switch-trigger" href="javascript:void(0)">
-            <img src="../assets/img/sidebar-3.jpg" alt="">
-          </a>
-        </li>
-        <li>
-          <a class="img-holder switch-trigger" href="javascript:void(0)">
-            <img src="../assets/img/sidebar-4.jpg" alt="">
-          </a>
-        </li>
+
         <li class="button-container">
-          <a href="https://www.creative-tim.com/product/material-dashboard-pro" target="_blank" class="btn btn-rose btn-block btn-fill">Buy Now</a>
-          <a href="https://demos.creative-tim.com/material-dashboard-pro/docs/2.1/getting-started/introduction.html" target="_blank" class="btn btn-default btn-block">
-            Documentation
-          </a>
-          <a href="https://www.creative-tim.com/product/material-dashboard" target="_blank" class="btn btn-info btn-block">
-            Get Free Demo!
-          </a>
+          <button type="submit" target="_blank" class="btn btn-rose btn-block btn-fill">Save</button>
         </li>
-        <li class="button-container github-star">
-          <a class="github-button" href="https://github.com/creativetimofficial/ct-material-dashboard-pro" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star ntkme/github-buttons on GitHub">Star</a>
-        </li>
-        <li class="header-title">Thank you for 95 shares!</li>
-        <li class="button-container text-center">
-          <button id="twitter" class="btn btn-round btn-twitter"><i class="fa fa-twitter"></i> &middot; 45</button>
-          <button id="facebook" class="btn btn-round btn-facebook"><i class="fa fa-facebook-f"></i> &middot; 50</button>
-          <br>
-          <br>
-        </li>
+        </form>
       </ul>
     </div>
   </div>
+      @endcan
+{{--    <div class="fixed-plugin">--}}
+{{--      <div class="dropdown show-dropdown">--}}
+{{--        <a href="#" data-toggle="dropdown">--}}
+{{--          <i class="fa fa-cog fa-2x"> </i>--}}
+{{--        </a>--}}
+{{--        <ul class="dropdown-menu">--}}
+{{--          <li class="header-title"> Sidebar Filters</li>--}}
+{{--          <li class="adjustments-line">--}}
+{{--            <a href="javascript:void(0)" class="switch-trigger active-color">--}}
+{{--              <div class="badge-colors ml-auto mr-auto">--}}
+{{--                <span class="badge filter badge-purple" data-color="purple"></span>--}}
+{{--                <span class="badge filter badge-azure" data-color="azure"></span>--}}
+{{--                <span class="badge filter badge-green" data-color="green"></span>--}}
+{{--                <span class="badge filter badge-warning" data-color="orange"></span>--}}
+{{--                <span class="badge filter badge-danger" data-color="danger"></span>--}}
+{{--                <span class="badge filter badge-rose active" data-color="rose"></span>--}}
+{{--              </div>--}}
+{{--              <div class="clearfix"></div>--}}
+{{--            </a>--}}
+{{--          </li>--}}
+{{--          <li class="header-title">Sidebar Background</li>--}}
+{{--          <li class="adjustments-line">--}}
+{{--            <a href="javascript:void(0)" class="switch-trigger background-color">--}}
+{{--              <div class="ml-auto mr-auto">--}}
+{{--                <span class="badge filter badge-black active" data-background-color="black"></span>--}}
+{{--                <span class="badge filter badge-white" data-background-color="white"></span>--}}
+{{--                <span class="badge filter badge-red" data-background-color="red"></span>--}}
+{{--              </div>--}}
+{{--              <div class="clearfix"></div>--}}
+{{--            </a>--}}
+{{--          </li>--}}
+{{--          <li class="adjustments-line">--}}
+{{--            <a href="javascript:void(0)" class="switch-trigger">--}}
+{{--              <p>Sidebar Mini</p>--}}
+{{--              <label class="ml-auto">--}}
+{{--                <div class="togglebutton switch-sidebar-mini">--}}
+{{--                  <label>--}}
+{{--                    <input type="checkbox">--}}
+{{--                    <span class="toggle"></span>--}}
+{{--                  </label>--}}
+{{--                </div>--}}
+{{--              </label>--}}
+{{--              <div class="clearfix"></div>--}}
+{{--            </a>--}}
+{{--          </li>--}}
+{{--          <li class="adjustments-line">--}}
+{{--            <a href="javascript:void(0)" class="switch-trigger">--}}
+{{--              <p>Sidebar Images</p>--}}
+{{--              <label class="switch-mini ml-auto">--}}
+{{--                <div class="togglebutton switch-sidebar-image">--}}
+{{--                  <label>--}}
+{{--                    <input type="checkbox" checked="">--}}
+{{--                    <span class="toggle"></span>--}}
+{{--                  </label>--}}
+{{--                </div>--}}
+{{--              </label>--}}
+{{--              <div class="clearfix"></div>--}}
+{{--            </a>--}}
+{{--          </li>--}}
+{{--          <li class="header-title">Images</li>--}}
+{{--          <li class="active">--}}
+{{--            <a class="img-holder switch-trigger" href="javascript:void(0)">--}}
+{{--              <img src="../assets/img/sidebar-1.jpg" alt="">--}}
+{{--            </a>--}}
+{{--          </li>--}}
+{{--          <li>--}}
+{{--            <a class="img-holder switch-trigger" href="javascript:void(0)">--}}
+{{--              <img src="../assets/img/sidebar-2.jpg" alt="">--}}
+{{--            </a>--}}
+{{--          </li>--}}
+{{--          <li>--}}
+{{--            <a class="img-holder switch-trigger" href="javascript:void(0)">--}}
+{{--              <img src="../assets/img/sidebar-3.jpg" alt="">--}}
+{{--            </a>--}}
+{{--          </li>--}}
+{{--          <li>--}}
+{{--            <a class="img-holder switch-trigger" href="javascript:void(0)">--}}
+{{--              <img src="../assets/img/sidebar-4.jpg" alt="">--}}
+{{--            </a>--}}
+{{--          </li>--}}
+{{--          <li class="button-container">--}}
+{{--            <a href="https://www.creative-tim.com/product/material-dashboard-pro" target="_blank" class="btn btn-rose btn-block btn-fill">Buy Now</a>--}}
+{{--            <a href="https://demos.creative-tim.com/material-dashboard-pro/docs/2.1/getting-started/introduction.html" target="_blank" class="btn btn-default btn-block">--}}
+{{--              Documentation--}}
+{{--            </a>--}}
+{{--            <a href="https://www.creative-tim.com/product/material-dashboard" target="_blank" class="btn btn-info btn-block">--}}
+{{--              Get Free Demo!--}}
+{{--            </a>--}}
+{{--          </li>--}}
+{{--          <li class="button-container github-star">--}}
+{{--            <a class="github-button" href="https://github.com/creativetimofficial/ct-material-dashboard-pro" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star ntkme/github-buttons on GitHub">Star</a>--}}
+{{--          </li>--}}
+{{--          <li class="header-title">Thank you for 95 shares!</li>--}}
+{{--          <li class="button-container text-center">--}}
+{{--            <button id="twitter" class="btn btn-round btn-twitter"><i class="fa fa-twitter"></i> &middot; 45</button>--}}
+{{--            <button id="facebook" class="btn btn-round btn-facebook"><i class="fa fa-facebook-f"></i> &middot; 50</button>--}}
+{{--            <br>--}}
+{{--            <br>--}}
+{{--          </li>--}}
+{{--        </ul>--}}
+{{--      </div>--}}
+{{--    </div>--}}
 @endsection
