@@ -17,7 +17,7 @@
               </div>
               <div class="card-footer">
                 <div class="stats">
-                  <i class="material-icons ">help</i>
+                  <i class="material-icons ">info</i>
                  Nombre de transactions
                 </div>
               </div>
@@ -34,7 +34,7 @@
               </div>
               <div class="card-footer">
                 <div class="stats">
-                  <i class="material-icons">help</i> Echecs de transaction
+                  <i class="material-icons">info</i> Echecs de transaction
                 </div>
               </div>
             </div>
@@ -50,7 +50,7 @@
               </div>
               <div class="card-footer">
                 <div class="stats">
-                  <i class="material-icons">help</i> tranactions reussies
+                  <i class="material-icons">info</i> tranactions reussies
                 </div>
               </div>
             </div>
@@ -67,7 +67,7 @@
               </div>
               <div class="card-footer">
                 <div class="stats">
-                  <i class="material-icons">help</i>@if(isset($_SESSION['settings'])) {{$_SESSION['settings']['number']}} @else 30 @endif Derniers jours
+                  <i class="material-icons">info</i>@if(isset($_SESSION['settings'])) {{$_SESSION['settings']['number']}} @else 30 @endif Derniers jours
                 </div>
               </div>
             </div>

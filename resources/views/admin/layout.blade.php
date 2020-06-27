@@ -56,7 +56,9 @@ The above copyright notice and this permission notice shall be included in all c
     <meta name="csrf-token" content="{!! csrf_token() !!}">
 {{--<meta name="_token" content="leLFmCYSqJrAlCtKdYLa1JVDIqNJp4xsva8rWEKS">--}}
     <!--     Fonts and icons     -->
-    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+{{--    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />--}}
+
+    <link rel="stylesheet" href="{{asset('assets/css/material-icons.css')}}" />
     <link rel="stylesheet" href="{{asset('../../../maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css')}}">
     <!-- CSS Files -->
     <link href="{{asset('../assets/css/material-dashboard.min1c51.css?v=2.1.2')}}" rel="stylesheet" />
@@ -154,7 +156,7 @@ The above copyright notice and this permission notice shall be included in all c
                 @can('role-list')
                 <li class="nav-item @if($view_name=='admin-roles-index'||$view_name=='admin-roles-show'||$view_name=='admin-roles-edit'||$view_name=='admin-roles-create')active @endif ">
                     <a class="nav-link" href="{{route('roles.index')}}">
-                        <i class="material-icons">military_tech</i>
+                        <i class="material-icons">verified_user</i>
                         <p> Roles </p>
                     </a>
                 </li>
