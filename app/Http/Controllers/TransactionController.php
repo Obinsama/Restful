@@ -24,7 +24,7 @@ class TransactionController extends Controller
         $montant = $request->input("montant");
         $numero = $request->input("numero");
         $motif = 'Achat data';
-        $client_id=$request->input("client_id");
+        $client_id=Auth::id();
         $date_et_heure = date('Y-m-d H:i:s');
         DB::table('transaction')->insert([
             'client_id'=>$client_id,
@@ -45,6 +45,7 @@ class TransactionController extends Controller
         DB::table('transaction')->where('statut',10)->limit(1)->update(['statut'=>15]);
         $result["response"]=DB::table('transaction')->where('statut',15)->limit(1)->get();
         DB::table('transaction')->where('statut',15)->limit(1)->update(['statut'=>11]);
+        //$result['user']=Auth::user();
         return response()->json($result,200);
     }
     public function totalIncome(Request $request){
