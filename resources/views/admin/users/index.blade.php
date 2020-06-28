@@ -74,16 +74,16 @@
                                         @endif
                                     </td>
                                     <td class="td-actions text-right">
-                                        <a href="{{route('users.show',$user->id)}}" rel="tooltip" class="btn btn-info btn-link">
+                                        <a href="{{route('users.show',$user->id)}}" rel="tooltip" title="show" class="btn btn-info btn-link">
                                             <i class="material-icons">visibility</i>
                                         </a>
                                         @can('user-edit')
-                                            <a href="{{route('users.edit',$user->id)}}" rel="tooltip" class="btn btn-success btn-link">
+                                            <a href="{{route('users.edit',$user->id)}}" rel="tooltip" title="edit" class="btn btn-success btn-link">
                                                 <i class="material-icons">edit</i>
                                             </a>
                                         @endcan
                                         @can('user-delete')
-                                            <button rel="tooltip" class="btn btn-danger btn-link" onclick="event.preventDefault();
+                                            <button rel="tooltip" title="delete" class="btn btn-danger btn-link" onclick="event.preventDefault();
                                                      document.getElementById('delete-form').submit();">
                                                 <i class="material-icons">close</i>
                                                 <form id="delete-form" action="{{ route('users.destroy',$user->id) }}" method="POST" style="display: none;">

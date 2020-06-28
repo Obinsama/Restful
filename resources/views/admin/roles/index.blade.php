@@ -48,16 +48,16 @@
                                             <td>{{ $role->created_at }}</td>
                                             <td class="">{{ $role->updated_at }}</td>
                                             <td class="td-actions text-right">
-                                                <a href="{{route('roles.show',$role->id)}}" rel="tooltip" class="btn btn-info btn-link">
+                                                <a href="{{route('roles.show',$role->id)}}" rel="tooltip" title="show" class="btn btn-info btn-link">
                                                     <i class="material-icons">visibility</i>
                                                 </a>
                                                 @can('role-edit')
-                                                    <a href="{{route('roles.edit',$role->id)}}" rel="tooltip" class="btn btn-success btn-link">
+                                                    <a href="{{route('roles.edit',$role->id)}}" rel="tooltip" title="edit" class="btn btn-success btn-link">
                                                         <i class="material-icons">edit</i>
                                                     </a>
                                                 @endcan
                                                 @can('role-delete')
-                                                    <button href="{{route('roles.destroy',$role->id)}}" rel="tooltip" class="btn btn-danger btn-link" onclick="event.preventDefault();
+                                                    <button href="{{route('roles.destroy',$role->id)}}" rel="tooltip" title="delete" class="btn btn-danger btn-link" onclick="event.preventDefault();
                                                      document.getElementById('delete-form').submit();">
                                                         <i class="material-icons">close</i>
                                                         <form id="delete-form" action="{{ route('roles.destroy',$role->id) }}" method="POST" style="display: none;">

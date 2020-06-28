@@ -60,7 +60,7 @@
 
                                             <th>Details</th>
 
-                                            <th width="280px">Action</th>
+                                            <th width="110px" class="text-center">Action</th>
 
                                         </tr>
                                         </thead>
@@ -75,7 +75,7 @@
 
                                                     <td>{{ $product->detail }}</td>
 
-                                                    <td>
+                                                    <td class="td-actions text-center">
 
                                                         <form class="justify-content-center" action="{{ route('products.destroy',$product->id) }}" method="POST">
 
