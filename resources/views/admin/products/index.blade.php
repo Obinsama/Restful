@@ -77,13 +77,13 @@
 
                                                     <td>
 
-                                                        <form action="{{ route('products.destroy',$product->id) }}" method="POST">
+                                                        <form class="justify-content-center" action="{{ route('products.destroy',$product->id) }}" method="POST">
 
-                                                            <a class="btn btn-sm btn-info" href="{{ route('products.show',$product->id) }}">Show</a>
+{{--                                                            <a class="btn btn-sm btn-info" href="{{ route('products.show',$product->id) }}">Show</a>--}}
 
                                                             @can('product-edit')
 
-                                                                <a class="btn btn-sm btn-primary" href="{{ route('products.edit',$product->id) }}">Edit</a>
+                                                                <a class="btn btn-success btn-link" title="edit" rel="tooltip" href="{{ route('products.edit',$product->id) }}"> <i class="material-icons">edit</i></a>
 
                                                             @endcan
 
@@ -94,7 +94,7 @@
 
                                                             @can('product-delete')
 
-                                                                <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                                                                <button type="submit" rel="tooltip" title="delete" class="btn btn-link btn-danger">     <i class="material-icons">close</i></button>
 
                                                             @endcan
 

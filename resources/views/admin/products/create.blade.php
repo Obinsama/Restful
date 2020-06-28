@@ -1,91 +1,64 @@
-@extends('layouts.app')
-
-
+@extends('admin.layout')
 @section('content')
 
-    <div class="row">
+    <br>
+    <br>
+    <br>
+    <div class="col-md-6 ml-auto mr-auto">
+        @if (count($errors) > 0)
 
-        <div class="col-lg-12 margin-tb">
+            <div class="alert alert-danger">
 
-            <div class="pull-left">
+                <strong>Whoops!</strong> There were some problems with your input.<br><br>
 
-                <h2>Add New Product</h2>
+                <ul>
+
+                    @foreach ($errors->all() as $error)
+
+                        <li>{{ $error }}</li>
+
+                    @endforeach
+
+                </ul>
 
             </div>
 
-            <div class="pull-right">
+        @endif
+        <form  action="{{route('products.store')}}" method="POST" >
+            @csrf
+            <div class="card ">
+                <div class="card-header card-header-rose card-header-icon">
+                    <div class="card-icon">
+                        <i class="material-icons">military_tech</i>
+                    </div>
+                    <h4 class="card-title">Create product</h4>
 
-                <a class="btn btn-primary" href="{{ route('products.index') }}"> Back</a>
+                </div>
+                <div class="card-body ">
+                    <div class="form-group bmd-form-group">
+                        <label for="name" class="bmd-label-floating"> Nom </label>
+                        <input type="text" class="form-control" name="name" id="name" required="true" aria-required="true" value="">
+                    </div>
+                    <div class="form-group bmd-form-group">
+                        <label for="price" class="bmd-label-floating"> Prix </label>
+                        <input type="text" class="form-control" name="price" id="price" required="true" aria-required="true" value="">
+                    </div>
+                    <div class="form-group bmd-form-group">
+                        <label for="validity" class="bmd-label-floating"> Validite </label>
+                        <input type="text" class="form-control" name="validity" id="validity" required="true" aria-required="true" value="">
+                    </div>
+                    <div class="form-group bmd-form-group">
+                        <label for="detail" class="bmd-label-floating"> Description </label>
+                        <textarea  class="form-control" name="detail" id="detail" required="true" aria-required="true"></textarea>
+                    </div>
+                    {{--                    <div class="category form-category">* Required fields</div>--}}
+                </div>
 
+                <div class="card-footer text-right">
+                    <a href="{{route('products.index')}}" class="btn btn-rose">Back</a>
+                    <button type="submit" class="btn btn-rose">Create</button>
+                </div>
             </div>
-
-        </div>
-
+        </form>
     </div>
-
-
-    @if ($errors->any())
-
-        <div class="alert alert-danger">
-
-            <strong>Whoops!</strong> There were some problems with your input.<br><br>
-
-            <ul>
-
-                @foreach ($errors->all() as $error)
-
-                    <li>{{ $error }}</li>
-
-                @endforeach
-
-            </ul>
-
-        </div>
-
-    @endif
-
-
-    <form action="{{ route('products.store') }}" method="POST">
-
-        @csrf
-
-
-        <div class="row">
-
-            <div class="col-xs-12 col-sm-12 col-md-12">
-
-                <div class="form-group">
-
-                    <strong>Name:</strong>
-
-                    <input type="text" name="name" class="form-control" placeholder="Name">
-
-                </div>
-
-            </div>
-
-            <div class="col-xs-12 col-sm-12 col-md-12">
-
-                <div class="form-group">
-
-                    <strong>Detail:</strong>
-
-                    <textarea class="form-control" style="height:150px" name="detail" placeholder="Detail"></textarea>
-
-                </div>
-
-            </div>
-
-            <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-
-                <button type="submit" class="btn btn-primary">Submit</button>
-
-            </div>
-
-        </div>
-
-
-    </form>
-
-
 @endsection
